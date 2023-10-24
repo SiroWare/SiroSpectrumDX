@@ -8,6 +8,9 @@ class FunGame : public Game {
 public:
 	void setup() override;
 	void loop() override;
+
+	SiroPencil* pencil = pencil->SharpenPencil();
+	SiroInput* input = input->GetKeyboard();
 };
 
 unsigned char stefanvas[] = {
@@ -31,8 +34,13 @@ unsigned char stefanvas[] = {
 
 Sprite* Jon = new Sprite{  8,16, stefanvas };
 
-SiroPencil* pencil = pencil->SharpenPencil();
-SiroInput* input = input->GetKeyboard();
+void FunGame::setup() {
+	pencil->SetSprite(*Jon, 5, 5, 7);
+}
+
+void FunGame::loop() {
+
+}
 
 int main(void) {
 	SiroCore sc;
@@ -46,17 +54,4 @@ int main(void) {
 	}
 
 	return 0;
-}
-
-void FunGame::setup(){
-	pencil->SetSprite(*Jon, 14, 14, 15);
-}
-
-void FunGame::loop() {
-	if (input->KeyPressed(KeyCode::Space)) {
-		pencil->SetBGColour(5, 5, 3);
-	}
-	if (input->KeyReleased(KeyCode::Space)) {
-		pencil->SetBGColour(5, 5, 5);
-	}
 }

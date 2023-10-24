@@ -1,11 +1,6 @@
 #ifndef CORE_H_
 #define CORE_H_
 
-class SiroRenderer;
-class SiroInput;
-class Game;
-struct GLFWwindow;
-
 class SiroCore {
 
 public:
@@ -15,12 +10,12 @@ public:
 
 	int ShutdownConsole();
 
-	void RunGame(Game* game);
+	void RunGame(class Game* game);
 
 private:
-	SiroRenderer* _renderer;
-	SiroInput* _input;
-	GLFWwindow* _window;
+	class SiroRenderer* _renderer;
+	class SiroInput* _input;
+	struct GLFWwindow* _window;
 	double _starttime;
 };
 

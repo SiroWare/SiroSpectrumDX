@@ -1,8 +1,6 @@
 #ifndef INPUT_H_
 #define INPUT_H_
 
-struct GLFWwindow;
-
 enum class KeyCode
 {
 	Space = 32,
@@ -165,7 +163,7 @@ private:
 	SiroInput();
 	~SiroInput();
 	static SiroInput* _instance;
-	GLFWwindow* _window;
+	struct GLFWwindow* _window;
 
 	void setWindow(GLFWwindow* window);
 
