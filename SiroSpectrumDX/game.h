@@ -7,6 +7,6 @@ public:
 	virtual void loop();
 
 	bool Reset = 1;
-};
+}; 
 
 #endif
