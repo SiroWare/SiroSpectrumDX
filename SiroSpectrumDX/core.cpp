@@ -13,6 +13,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 SiroCore::SiroCore() {
     _window = nullptr;
     _renderer = nullptr;
+    _cartridge = nullptr;
     _input = nullptr;
     _starttime = 0.0;
 }
@@ -59,22 +60,22 @@ void SiroCore::RunGame(Game* game) {
       _input->_presscalled = 0;
       _input->_relescalled = 0;
 
-       if (game->Reset) {
+       if (_cartridge != game) {
 
-           game->setup();
-       
-           game->Reset = 0;
+           _cartridge = game;
+
+           _cartridge->setup();
        }
 
-        game->loop();
+       _cartridge->loop();
 
-        _renderer->UpdateGameScreen();
+       _renderer->UpdateGameScreen();
 
-        _renderer->DrawGameScreen();
+       _renderer->DrawGameScreen();
 
-        glfwSwapBuffers(_window);
-        glfwPollEvents();
+       glfwSwapBuffers(_window);
+       glfwPollEvents();
 
-        _starttime = glfwGetTime();
+       _starttime = glfwGetTime();
     }
 }

@@ -15,6 +15,7 @@ public:
 private:
 	class SiroRenderer* _renderer;
 	class SiroInput* _input;
+	class Game* _cartridge;
 	struct GLFWwindow* _window;
 	double _starttime;
 };
