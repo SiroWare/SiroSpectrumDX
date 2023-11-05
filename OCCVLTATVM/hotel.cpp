@@ -1,10 +1,6 @@
 #include "hotel.h"
 #include <OCCVLTATVM/room.h>
 
-void Hotel::setup(){
-
-}
-
 void Hotel::AddRoomAt(Room* room, int pos) {
 	_rooms.insert(_rooms.begin() + pos, room);
 }

@@ -2,13 +2,12 @@
 #define HOTEL_H_
 
 #include <OCCVLTATVM/room.h>
-#include <vector>
 #include <initializer_list>
+#include <vector>
 
 class Hotel {
 
 public:
-	virtual void setup();
 	void AddRoomAt(Room* room, int pos);
 	void AddRoomAt(std::initializer_list<Room*> room, int pos);
 	Room* GetRoomAt(int pos) { return _rooms[pos]; };
