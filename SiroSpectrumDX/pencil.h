@@ -18,7 +18,7 @@ public:
 		return _instance;
 	}
 
-	void SetSprite(Sprite sprite, unsigned char xpos, unsigned char ypos, unsigned char colour);
+	void SetSprite(Sprite* sprite, unsigned char xpos, unsigned char ypos, unsigned char colour);
 
 	void SetTile(Tile tile, unsigned char x, unsigned char y);
 

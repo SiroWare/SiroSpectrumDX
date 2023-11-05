@@ -7,38 +7,38 @@ SiroPencil::SiroPencil() {
 	_renderer = _renderer->GetRenderer();
 }
 
-void SiroPencil::SetSprite(Sprite sprite, unsigned char xpos, unsigned char ypos, unsigned char colour) {
+void SiroPencil::SetSprite(Sprite* sprite, unsigned char xpos, unsigned char ypos, unsigned char colour) {
 	unsigned char row = 0;
 
 	switch (colour >> 4) {
 	case 1:
-		for (unsigned char y = 0; y < sprite.height; y++) {
-			for (unsigned char x = sprite.width; x > 0; x--) {
-				SetPixel(x + xpos - 1, y + ypos, sprite.canvas[row] * colour);
+		for (unsigned char y = 0; y < sprite->height; y++) {
+			for (unsigned char x = sprite->width; x > 0; x--) {
+				SetPixel(x + xpos - 1, y + ypos, sprite->image[row] * colour);
 				row++;
 			}
 		}
 		break;
 	case 2:
-		for (unsigned char y = sprite.height; y > 0; y--) {
-			for (unsigned char x = 0; x < sprite.width; x++) {
-				SetPixel(x + xpos, y + ypos - 1, sprite.canvas[row] * colour);
+		for (unsigned char y = sprite->height; y > 0; y--) {
+			for (unsigned char x = 0; x < sprite->width; x++) {
+				SetPixel(x + xpos, y + ypos - 1, sprite->image[row] * colour);
 				row++;
 			}
 		}
 		break;
 	case 3:
-		for (unsigned char y = sprite.height; y > 0; y--) {
-			for (unsigned char x = sprite.width; x > 0; x--) {
-				SetPixel(x + xpos - 1, y + ypos - 1, sprite.canvas[row] * colour);
+		for (unsigned char y = sprite->height; y > 0; y--) {
+			for (unsigned char x = sprite->width; x > 0; x--) {
+				SetPixel(x + xpos - 1, y + ypos - 1, sprite->image[row] * colour);
 				row++;
 			}
 		}
 		break;
 	default:
-		for (unsigned char y = 0; y < sprite.height; y++) {
-			for (unsigned char x = 0; x < sprite.width; x++) {
-				SetPixel(x + xpos, y + ypos, sprite.canvas[row] * colour);
+		for (unsigned char y = 0; y < sprite->height; y++) {
+			for (unsigned char x = 0; x < sprite->width; x++) {
+				SetPixel(x + xpos, y + ypos, sprite->image[row] * colour);
 				row++;
 			}
 		}
@@ -47,8 +47,14 @@ void SiroPencil::SetSprite(Sprite sprite, unsigned char xpos, unsigned char ypos
 }
 
 void SiroPencil::SetTile(Tile tile, unsigned char x, unsigned char y) {
-	SetSprite(Sprite{  8, 8, tile.canvas }, x * 8, y * 8, tile.colour & 15);
-	SetBGColour(x, y, tile.colour >> 4);
+	unsigned char row = 0;
+	for (unsigned char ypos = 0; ypos < 8; ypos++) {
+		for (unsigned char xpos = 0; xpos < 8; xpos++) {
+			SetPixel((x * 8) + xpos, (y * 8) + ypos, tile.canvas[row] * tile.colour & 15);
+			SetBGColour(x, y, tile.colour >> 4);
+			row++;
+		}
+	}
 }
 
 void SiroPencil::RemoveSprite(Sprite sprite, unsigned char xpos, unsigned char ypos) {

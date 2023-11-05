@@ -64,6 +64,7 @@ add_library(SiroSpectrumDX # ar rcs libSiroSpectrumDX.a
 	SiroSpectrumDX/core.h
 	SiroSpectrumDX/game.cpp
 	SiroSpectrumDX/game.h
+	SiroSpectrumDX/sprite.cpp
 	SiroSpectrumDX/sprite.h
 	SiroSpectrumDX/input.cpp
 	SiroSpectrumDX/input.h
