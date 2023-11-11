@@ -15,6 +15,8 @@ private:
 };
 
 class Hall_1a : public Room {
+	Tile* wallup = nullptr;
+	Tile* walldown = nullptr;
 	void setup() override;
 	void loop() override;
 };

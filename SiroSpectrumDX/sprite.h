@@ -2,7 +2,7 @@
 #define SPRITE_H_
 
 struct Sprite {
-	Sprite(unsigned char _width, unsigned char _height, unsigned short grid...);
+	Sprite(unsigned char _width, unsigned char _height, unsigned char count,...);
 	~Sprite();
 	unsigned char width;
 	unsigned char height;

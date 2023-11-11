@@ -2,55 +2,128 @@
 #include <SiroSpectrumDX/game.h>
 #include <SiroSpectrumDX/pencil.h>
 #include <SiroSpectrumDX/input.h>
+#include <vector>
 #include <stdio.h>
 
-class FunGame : public Game {
+#define RESETPLAYER {frog->x = 128; \
+					frog->y = 184;\
+}
+
+struct Entity {
+	Sprite* sprite;
+	unsigned char x;
+	unsigned char y;
+};
+
+class Frogger : public Game {
 public:
 	void setup() override;
 	void loop() override;
+
+	std::vector<Entity*>slowlane;
+
+	Entity* frog = new Entity();
+
+	bool Collision(Entity* entity1, Entity* entity2);
 
 	SiroPencil* pencil = pencil->SharpenPencil();
 	SiroInput* input = input->GetKeyboard();
 };
 
-unsigned char stefanvas[] = {
-0,0,0,1,1,1,0,0,
-0,0,1,1,1,1,1,0,
-0,1,1,1,1,1,0,0,
-0,1,1,1,0,1,0,0,
-0,0,1,1,1,1,1,0,
-0,0,1,1,1,1,0,0,
-0,0,0,1,1,0,0,0,
-0,0,1,1,0,1,0,0,
-0,1,1,1,0,1,1,0,
-0,1,1,1,0,1,1,0,
-0,1,1,1,1,1,1,0,
-0,1,0,0,1,0,1,0,
-0,0,1,1,1,1,0,0,
-0,0,1,1,0,1,0,0,
-0,0,1,0,1,1,0,0,
-0,0,1,1,0,1,1,0,
-};
+unsigned char posx = 0;
+unsigned char posy = 0;
 
-Sprite* Jon = new Sprite{  8,16, stefanvas };
+Sprite* frogy = new Sprite(8, 8,
+		1,0,0,1,1,0,0,1,
+		1,0,1,1,1,1,0,1,
+		0,1,0,1,1,0,1,0,
+		0,0,1,1,1,1,0,0,
+		0,0,1,1,1,1,0,0,
+		0,1,1,1,1,1,1,0,
+		0,1,0,1,1,0,1,0,
+		1,1,0,0,0,0,1,1
+	);
 
-void FunGame::setup() {
-	pencil->SetSprite(*Jon, 5, 5, 7);
+Sprite* car = new Sprite(16, 8,
+		0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,
+		0,0,0,0,0,0,1,0,1,0,0,0,0,1,0,0,
+		0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,
+		1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+		1,1,0,0,0,1,1,1,1,1,1,0,0,0,1,1,
+		1,0,0,1,0,0,1,1,1,1,0,0,1,0,0,1,
+		1,0,1,0,1,0,1,1,1,1,0,1,0,1,0,1,
+		0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0
+	);
+
+//Sprite* frogx = new Sprite(8, 8, 
+//		1,0,0,0,0,0,1,1,
+//		1,1,1,0,0,1,0,0,
+//		0,0,1,1,1,0,1,0,
+//		0,1,1,1,1,1,1,1,
+//		0,1,1,1,1,1,1,1,
+//		0,0,1,1,1,0,1,0,
+//		1,1,1,0,0,1,0,0,
+//		1,0,0,0,0,0,1,1
+//	);
+bool Frogger::Collision(Entity* entity1, Entity* entity2) {
+	if (entity1->x + entity1->sprite->width > entity2->x &&
+		entity1->x < entity2->x + entity2->sprite->width &&
+		entity1->y + entity1->sprite->height > entity2->y &&
+		entity1->y < entity2->y + entity2->sprite->height
+		) {
+		return true;
+	}
+	return false;
 }
 
-void FunGame::loop() {
+void Frogger::setup() {
+	frog->sprite = frogy;
+	RESETPLAYER;
 
+	slowlane.resize(4);
+	for (int i = 0; i < slowlane.size(); i++) {
+		slowlane[i] = new Entity();
+		slowlane[i]->sprite = car;
+		slowlane[i]->x = i * (256 / slowlane.size());
+		slowlane[i]->y = 168;
+	}
+}
+
+void Frogger::loop() {
+	pencil->ClearScreen();
+	pencil->SetSprite(frog->sprite, frog->x, frog->y, GRN);
+	
+	for (int i = 0; i < slowlane.size(); i++) {
+		pencil->SetSprite(slowlane[i]->sprite, slowlane[i]->x, slowlane[i]->y, YLW);
+		slowlane[i]->x--;
+		if (Collision(frog, slowlane[i])) {
+			RESETPLAYER;
+		}
+	}
+
+	if (input->KeyPressed(KeyCode::Up)) {
+		frog->y -= 8;
+	}
+	else if (input->KeyPressed(KeyCode::Down)) {
+		frog->y += 8;
+	}
+	else if (input->KeyPressed(KeyCode::Left)) {
+		frog->x -= 8;
+	}
+	else if (input->KeyPressed(KeyCode::Right)) {
+		frog->x += 8;
+	}
 }
 
 int main(void) {
 	SiroCore sc;
 
-	FunGame* fungame = new FunGame();
+	Frogger* frogger = new Frogger();
 
 	sc.StartupConsole();
 	
 	while (!sc.ShutdownConsole()) {
-		sc.RunGame(fungame);
+		sc.RunGame(frogger);
 	}
 
 	return 0;

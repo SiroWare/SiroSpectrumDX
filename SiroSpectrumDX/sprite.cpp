@@ -1,17 +1,20 @@
 #include "sprite.h"
-#include <cstdarg>
+#include <stdarg.h>
 #include <stdio.h>
 
-Sprite::Sprite(unsigned char _width, unsigned char _height, unsigned short grid...) {
-	va_list ap;
+Sprite::Sprite(unsigned char _width, unsigned char _height, unsigned char count,...) {
+	int result;
+	va_list list;
+	va_start(list, count);
 	image = new unsigned char[_width * _height];
 	width = _width;
 	height = _height;
-	va_start(ap, grid);
-	for (int i = 0; i < _width * _height; i++) {
-		image[i] = va_arg(ap, unsigned short);
+	image[0] = count;
+	for (int i = 1; i < _width * _height; i++) {
+		result = va_arg(list, unsigned char);
+		image[i] = result;
 	}
-	va_end(ap);
+	va_end(list);
 }
 
 Sprite::~Sprite() {

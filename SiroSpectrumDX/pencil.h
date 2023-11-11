@@ -3,6 +3,23 @@
 
 #include <SiroSpectrumDX/sprite.h>
 
+#define OFF 0
+#define BLK 1
+#define DBLU 2
+#define BLU 3
+#define DRED 4
+#define RED 5
+#define DMGT 6
+#define MGT 7
+#define DGRN 8
+#define GRN 9
+#define DCYN 10
+#define CYN 11
+#define DYLW 12
+#define YLW 13
+#define GRY 14
+#define WHT 15
+
 class SiroRenderer;
 
 class SiroPencil {

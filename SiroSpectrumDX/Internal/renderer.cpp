@@ -2,22 +2,22 @@
 #include <glad/glad.h>
 #include <stdio.h>
 
-#define OFF 0,0,0,0
-#define BLK 0,0,0,255
-#define DBLU 0,0,205,255
-#define BLU 0,0,255,255
-#define DRED 205,0,0,255
-#define RED 255,0,0,255
-#define DMGT 205,0,205,255
-#define MGT 255,0,255,255
-#define DGRN 0,205,0,255
-#define GRN 0,255,0,255
-#define DCYN 0,205,205,255
-#define CYN 0,255,255,255
-#define DYLW 205,205,0,255
-#define YLW 255,255,0,255
-#define GRY 205,205,205,255
-#define WHT 255,255,255,255
+#define RGB_OFF 0,0,0,0
+#define RGB_BLK 0,0,0,255
+#define RGB_DBLU 0,0,205,255
+#define RGB_BLU 0,0,255,255
+#define RGB_DRED 205,0,0,255
+#define RGB_RED 255,0,0,255
+#define RGB_DMGT 205,0,205,255
+#define RGB_MGT 255,0,255,255
+#define RGB_DGRN 0,205,0,255
+#define RGB_GRN 0,255,0,255
+#define RGB_DCYN 0,205,205,255
+#define RGB_CYN 0,255,255,255
+#define RGB_DYLW 205,205,0,255
+#define RGB_YLW 255,255,0,255
+#define RGB_GRY 205,205,205,255
+#define RGB_WHT 255,255,255,255
 
 const char* vertex_shader =
 "#version 330 core\n"
@@ -158,7 +158,7 @@ void SiroRenderer::SetupRenderer() {
     glUniform1i(glGetUniformLocation(shaderProgram, "FGTextureSampler"), 1);
 
     unsigned char palette[] = {
-        OFF,BLK,DBLU,BLU,DRED,RED,DMGT,MGT,DGRN,GRN,DCYN,CYN,DYLW,YLW,GRY,WHT
+        RGB_OFF,RGB_BLK,RGB_DBLU,RGB_BLU,RGB_DRED,RGB_RED,RGB_DMGT,RGB_MGT,RGB_DGRN,RGB_GRN,RGB_DCYN,RGB_CYN,RGB_DYLW,RGB_YLW,RGB_GRY,RGB_WHT
     };
 
     glActiveTexture(GL_TEXTURE2);
