@@ -18,7 +18,7 @@ SiroCore::SiroCore() {
     _starttime = 0.0;
 }
 
-void SiroCore::StartupConsole() {
+void SiroCore::StartupConsole(const char* name) {
     if (!glfwInit())
     {
         fprintf(stderr, "Failed to initialize GLFW\n");
@@ -27,7 +27,7 @@ void SiroCore::StartupConsole() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    _window = glfwCreateWindow(1024, 768, "SiroSpectrum", NULL, NULL);
+    _window = glfwCreateWindow(1024, 768, name, NULL, NULL);
 
     if (_window == NULL) {
         fprintf(stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n");

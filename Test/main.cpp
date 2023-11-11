@@ -120,7 +120,7 @@ int main(void) {
 
 	Frogger* frogger = new Frogger();
 
-	sc.StartupConsole();
+	sc.StartupConsole("Frogger");
 	
 	while (!sc.ShutdownConsole()) {
 		sc.RunGame(frogger);

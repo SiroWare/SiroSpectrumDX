@@ -6,7 +6,7 @@ class SiroCore {
 public:
 	SiroCore();
 
-	void StartupConsole();
+	void StartupConsole(const char* name = "SiroSpectrumDX");
 
 	int ShutdownConsole();
 
