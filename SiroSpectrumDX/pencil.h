@@ -20,6 +20,9 @@
 #define GRY 14
 #define WHT 15
 
+#define MIRROR 16
+#define MIRRORY 32
+
 class SiroRenderer;
 
 class SiroPencil {
