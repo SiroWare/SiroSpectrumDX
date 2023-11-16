@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 #define RESETPLAYER {frog->x = 128; \
-					frog->y = 184;\
+					frog->y = 168;\
 }
 
 struct Entity {
@@ -26,9 +26,9 @@ public:
 
 	bool Collision(Entity* entity1, Entity* entity2);
 
-	SiroPencil* pencil = pencil->SharpenPencil();
 	SiroInput* input = input->GetKeyboard();
 };
+SiroPencil* pencil = pencil->SharpenPencil();
 
 unsigned char posx = 0;
 unsigned char posy = 0;
@@ -55,6 +55,43 @@ Sprite* car = new Sprite(16, 8,
 		0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0
 	);
 
+Sprite* joedoe = new Sprite(8,16, 
+	0,0,0,1,1,1,0,0,
+	0,0,1,1,1,1,1,0,
+	0,1,1,1,1,1,0,0,
+	0,1,1,1,0,1,0,0,
+	0,0,1,1,1,1,1,0,
+	0,0,1,1,1,1,0,0,
+	0,0,0,1,1,0,0,0,
+	0,0,1,1,0,1,0,0,
+	0,1,1,1,0,1,1,0,
+	0,1,1,1,0,1,1,0,
+	0,1,1,1,1,1,1,0,
+	0,1,0,0,1,0,1,0,
+	0,0,1,1,1,1,0,0,
+	0,0,1,1,0,1,0,0,
+	0,0,1,0,1,1,0,0,
+	0,0,1,1,0,1,1,0
+);
+
+Sprite* joewalk = new Sprite(8,16, 
+	0,0,0,1,1,1,0,0,
+	0,0,1,1,1,1,1,0,
+	0,1,1,1,1,1,0,0,
+	0,1,1,1,0,1,0,0,
+	0,0,1,1,1,1,1,0,
+	0,0,1,1,1,1,0,0,
+	0,0,0,1,1,0,0,0,
+	0,0,1,1,0,1,0,0,
+	0,1,1,1,0,1,0,0,
+	0,0,1,1,1,0,0,0,
+	0,0,0,1,1,1,0,0,
+	0,0,1,0,1,1,0,0,
+	0,0,1,1,0,0,0,0,
+	0,1,1,1,0,1,1,0,
+	1,1,0,0,0,1,1,0,
+	0,1,1,0,0,0,1,1);
+
 //Sprite* frogx = new Sprite(8, 8, 
 //		1,0,0,0,0,0,1,1,
 //		1,1,1,0,0,1,0,0,
@@ -76,8 +113,10 @@ bool Frogger::Collision(Entity* entity1, Entity* entity2) {
 	return false;
 }
 
+AnimatedSprite* walkanimationprime = new AnimatedSprite({joedoe, joewalk}, 8);
+
 void Frogger::setup() {
-	frog->sprite = frogy;
+	frog->sprite = joedoe;
 	RESETPLAYER;
 
 	slowlane.resize(4);
@@ -90,8 +129,10 @@ void Frogger::setup() {
 }
 
 void Frogger::loop() {
+	pencil->AnimationLoop();
 	pencil->ClearScreen();
-	pencil->SetSprite(frog->sprite, frog->x, frog->y, GRN);
+
+	pencil->PlayAnimation(walkanimationprime, frog->x, frog->y, WHT);
 	
 	for (int i = 0; i < slowlane.size(); i++) {
 		pencil->SetSprite(slowlane[i]->sprite, slowlane[i]->x, slowlane[i]->y, YLW);

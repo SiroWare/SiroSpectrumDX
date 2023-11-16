@@ -1,6 +1,5 @@
-#include "sprite.h"
+#include <SiroSpectrumDX/sprite.h>
 #include <stdarg.h>
-#include <stdio.h>
 
 Sprite::Sprite(unsigned char _width, unsigned char _height, unsigned char count,...) {
 	int result;
@@ -19,4 +18,12 @@ Sprite::Sprite(unsigned char _width, unsigned char _height, unsigned char count,
 
 Sprite::~Sprite() {
 	delete[] image;
+}
+
+AnimatedSprite::AnimatedSprite(std::initializer_list<Sprite*> _sprites, unsigned char _speed) {
+	for (int i = 0; i < _sprites.size(); i++) {
+		sprites.push_back(_sprites.begin()[i]);
+	}
+	speed = _speed;
+	frame = 0;
 }
