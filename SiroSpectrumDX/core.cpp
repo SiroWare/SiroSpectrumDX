@@ -6,6 +6,8 @@
 #include <GLFW/glfw3.h>
 #include <stdio.h>
 
+int _framecounter = 0;
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport((width - 1024) / 2, (height - 768) / 2, 1024, 768);
 };
@@ -56,6 +58,8 @@ int SiroCore::ShutdownConsole() {
 void SiroCore::RunGame(Game* game) {
     if (glfwGetTime() - _starttime > 0.0162f) {//60 FPS CAP
        glClear(GL_COLOR_BUFFER_BIT);
+
+       _framecounter++;
 
       _input->_presscalled = 0;
       _input->_relescalled = 0;

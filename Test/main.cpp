@@ -113,7 +113,7 @@ bool Frogger::Collision(Entity* entity1, Entity* entity2) {
 	return false;
 }
 
-AnimatedSprite* walkanimationprime = new AnimatedSprite({joedoe, joewalk}, 8);
+AnimatedSprite* walkanimationprime = new AnimatedSprite({joedoe, joewalk}, 16);
 
 void Frogger::setup() {
 	frog->sprite = joedoe;
@@ -129,7 +129,6 @@ void Frogger::setup() {
 }
 
 void Frogger::loop() {
-	pencil->AnimationLoop();
 	pencil->ClearScreen();
 
 	pencil->PlayAnimation(walkanimationprime, frog->x, frog->y, WHT);

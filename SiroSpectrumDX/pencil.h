@@ -50,12 +50,9 @@ public:
 
 	void ClearScreen();
 
-	void AnimationLoop() { framecounter++; };
-
-	void PlayAnimation(AnimatedSprite* animation, unsigned char x_pos, unsigned char y_pos, unsigned char colour);
+	unsigned char PlayAnimation(AnimatedSprite* animation, unsigned char x_pos, unsigned char y_pos, unsigned char colour);
 
 private:
-	int framecounter = 0;
 
 	SiroPencil();
 

@@ -70,6 +70,7 @@ add_library(SiroSpectrumDX # ar rcs libSiroSpectrumDX.a
 	SiroSpectrumDX/input.h
 	SiroSpectrumDX/pencil.cpp
 	SiroSpectrumDX/pencil.h
+	SiroSpectrumDX/vector.h
 )
 
 # Test

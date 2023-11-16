@@ -2,6 +2,7 @@
 #include <SiroSpectrumDX/Internal/renderer.h>
 
 SiroPencil* SiroPencil::_instance = 0;
+extern int _framecounter;
 
 SiroPencil::SiroPencil() {
 	_renderer = _renderer->GetRenderer();
@@ -88,12 +89,15 @@ void SiroPencil::SetBGColour(unsigned char xpos, unsigned char ypos, unsigned ch
 	_renderer->backgroundcolors[ypos][xpos] = colour & 15;
 }
 
-void SiroPencil::PlayAnimation(AnimatedSprite* animation, unsigned char x_pos, unsigned char y_pos, unsigned char colour) {
-	if (!(framecounter & (animation->speed - 1))) {
+unsigned char SiroPencil::PlayAnimation(AnimatedSprite* animation, unsigned char x_pos, unsigned char y_pos, unsigned char colour) {
+	if (!(_framecounter & (animation->speed - 1))) {
 		animation->frame++;
 		if (animation->frame >= animation->sprites.size()) {
 			animation->frame = 0;
+			SetSprite(animation->sprites[animation->frame], x_pos, y_pos, colour);
+			return 1;
 		}
 	}
 	SetSprite(animation->sprites[animation->frame], x_pos, y_pos, colour);
+	return 0;
 }
