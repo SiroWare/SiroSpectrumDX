@@ -17,6 +17,7 @@ SiroCore::SiroCore() {
     _renderer = nullptr;
     _cartridge = nullptr;
     _input = nullptr;
+    _keysetup = nullptr;
     _starttime = 0.0;
 }
 
@@ -81,5 +82,34 @@ void SiroCore::RunGame(Game* game) {
        glfwPollEvents();
 
        _starttime = glfwGetTime();
+    }
+}
+
+void SiroCore::RunGame(void(*setup)(), void(*loop)()) {
+    if (glfwGetTime() - _starttime > 0.0162f) {//60 FPS CAP
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        _framecounter++;
+
+        _input->_presscalled = 0;
+        _input->_relescalled = 0;
+
+        if (_keysetup != setup) {
+
+            _keysetup = setup;
+
+            _keysetup();
+        }
+
+        loop();
+
+        _renderer->UpdateGameScreen();
+
+        _renderer->DrawGameScreen();
+
+        glfwSwapBuffers(_window);
+        glfwPollEvents();
+
+        _starttime = glfwGetTime();
     }
 }

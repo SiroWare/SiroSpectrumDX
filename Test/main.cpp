@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 #define RESETPLAYER {frog->x = 128; \
-					frog->y = 168;\
+					frog->y = 168 + 8;\
 }
 
 struct Entity {
@@ -26,8 +26,8 @@ public:
 
 	bool Collision(Entity* entity1, Entity* entity2);
 
-	SiroInput* input = input->GetKeyboard();
 };
+SiroInput* input = input->GetKeyboard();
 SiroPencil* pencil = pencil->SharpenPencil();
 
 unsigned char posx = 0;
@@ -113,10 +113,10 @@ bool Frogger::Collision(Entity* entity1, Entity* entity2) {
 	return false;
 }
 
-AnimatedSprite* walkanimationprime = new AnimatedSprite({joedoe, joewalk}, 16);
+AnimatedSprite* walkanimationprime = new AnimatedSprite({joedoe, joewalk}, 1);
 
 void Frogger::setup() {
-	frog->sprite = joedoe;
+	frog->sprite = frogy;
 	RESETPLAYER;
 
 	slowlane.resize(4);
@@ -131,7 +131,6 @@ void Frogger::setup() {
 void Frogger::loop() {
 	pencil->ClearScreen();
 
-	pencil->PlayAnimation(walkanimationprime, frog->x, frog->y, WHT);
 	
 	for (int i = 0; i < slowlane.size(); i++) {
 		pencil->SetSprite(slowlane[i]->sprite, slowlane[i]->x, slowlane[i]->y, YLW);
@@ -140,6 +139,8 @@ void Frogger::loop() {
 			RESETPLAYER;
 		}
 	}
+
+	//pencil->RemoveSprite(joedoe, frog->x, frog->y);
 
 	if (input->KeyPressed(KeyCode::Up)) {
 		frog->y -= 8;
@@ -153,6 +154,7 @@ void Frogger::loop() {
 	else if (input->KeyPressed(KeyCode::Right)) {
 		frog->x += 8;
 	}
+	pencil->SetSprite(frog->sprite, frog->x, frog->y, GRN);
 }
 
 int main(void) {

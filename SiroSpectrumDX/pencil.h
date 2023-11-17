@@ -46,11 +46,11 @@ public:
 
 	void SetBGColour(unsigned char xpos, unsigned char ypos, unsigned char colour);
 
-	void RemoveSprite(Sprite sprite, unsigned char xpos, unsigned char ypos);
+	void RemoveSprite(Sprite* sprite, unsigned char xpos, unsigned char ypos);
 
 	void ClearScreen();
 
-	unsigned char PlayAnimation(AnimatedSprite* animation, unsigned char x_pos, unsigned char y_pos, unsigned char colour);
+	unsigned char SetAnimatedSprite(AnimatedSprite* animation, unsigned char x_pos, unsigned char y_pos, unsigned char colour);
 
 private:
 

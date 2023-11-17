@@ -12,12 +12,15 @@ public:
 
 	void RunGame(class Game* game);
 
+	void RunGame(void (*setup)(), void (*loop)());
+
 private:
 	class SiroRenderer* _renderer;
 	class SiroInput* _input;
 	class Game* _cartridge;
 	struct GLFWwindow* _window;
 	double _starttime;
+	void(*_keysetup)();
 };
 
 #endif

@@ -23,8 +23,8 @@ public:
 
 	void DrawGameScreen(void);
 
-	unsigned char backgroundcolors[WIN_HEIGHT / TILESIZE][WIN_WIDTH / TILESIZE];
-	unsigned char pixelbuffer[WIN_HEIGHT][WIN_WIDTH];
+	unsigned char backgroundcolors[WIN_WIDTH / TILESIZE][WIN_WIDTH / TILESIZE];
+	unsigned char pixelbuffer[WIN_WIDTH][WIN_WIDTH];
 
 	friend class SiroCore;
 
