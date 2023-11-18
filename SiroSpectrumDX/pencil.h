@@ -38,19 +38,23 @@ public:
 		return _instance;
 	}
 
-	void SetSprite(Sprite* sprite, unsigned char xpos, unsigned char ypos, unsigned char colour);
+	void DrawSprite(Sprite* sprite, unsigned char xpos, unsigned char ypos, unsigned char colour);
 
-	void SetTile(Tile tile, unsigned char x, unsigned char y);
+	void DrawTile(Tile tile, unsigned char x, unsigned char y);
 
-	void SetPixel(unsigned char xpos, unsigned char ypos, unsigned char colour);
+	void RemoveTile(unsigned char x, unsigned char y);
 
-	void SetBGColour(unsigned char xpos, unsigned char ypos, unsigned char colour);
+	void DrawPixel(unsigned char xpos, unsigned char ypos, unsigned char colour);
+
+	void DrawBGColour(unsigned char xpos, unsigned char ypos, unsigned char colour);
 
 	void RemoveSprite(Sprite* sprite, unsigned char xpos, unsigned char ypos);
 
+	void DrawTileNumber(Tile* SizeTenArray[10], unsigned char x, unsigned char y, int number);
+
 	void ClearScreen();
 
-	unsigned char SetAnimatedSprite(AnimatedSprite* animation, unsigned char x_pos, unsigned char y_pos, unsigned char colour);
+	unsigned char DrawAnimatedSprite(AnimatedSprite* animation, unsigned char x_pos, unsigned char y_pos, unsigned char colour);
 
 private:
 
