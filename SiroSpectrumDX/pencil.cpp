@@ -48,11 +48,11 @@ void SiroPencil::DrawSprite(Sprite* sprite, unsigned char xpos, unsigned char yp
 	}
 }
 
-void SiroPencil::RemoveTile(unsigned char x, unsigned char y) {
+void SiroPencil::RemoveTile(unsigned char x, unsigned char y, unsigned char colour) {
 	for (unsigned char ypos = 0; ypos < 8; ypos++) {
 		for (unsigned char xpos = 0; xpos < 8; xpos++) {
 			_renderer->pixelbuffer[(y * 8) + ypos][(x * 8) + xpos] = 0;
-			_renderer->backgroundcolors[y][x] = 0;
+			_renderer->backgroundcolors[y][x] = colour;
 		}
 	}
 }
@@ -78,13 +78,13 @@ void SiroPencil::DrawTileNumber(Tile* SizeTenArray[10], unsigned char x, unsigne
 	DrawTile(*blankdigit, x, y);
 }
 
-void SiroPencil::DrawTileNumber(Tile* SizeTenArray[10], unsigned char x, unsigned char y, int number) {
+void SiroPencil::DrawTileNumber(Tile* SizeTenArray[10], unsigned char x, unsigned char y, int number, unsigned char colour) {
 	while (number > 0) {
 		DrawTile(*SizeTenArray[number % 10], x, y);
 		number /= 10;
 		x--;
 	}
-	RemoveTile(x, y);
+	RemoveTile(x, y, colour);
 }
 
 void SiroPencil::RemoveSprite(Sprite* sprite, unsigned char xpos, unsigned char ypos) {
