@@ -29,6 +29,9 @@ class SiroPencil {
 public:
 	SiroPencil(const SiroPencil&) = delete;
 
+	/**
+	 * @brief Initializes SiroPencil.
+	 */
 	static SiroPencil* SharpenPencil()
 	{
 		if (!_instance)
