@@ -50,6 +50,7 @@ public:
 
 	void RemoveSprite(Sprite* sprite, unsigned char xpos, unsigned char ypos);
 
+	void DrawTileNumber(Tile* SizeTenArray[10], unsigned char x, unsigned char y, int number, Tile* blankdigit);
 	void DrawTileNumber(Tile* SizeTenArray[10], unsigned char x, unsigned char y, int number);
 
 	void ClearScreen();

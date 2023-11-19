@@ -265,7 +265,6 @@ void Frogger::loop() {
 			RESETPLAYER;
 		}
 	}
-	pencil->DrawTileNumber(digits, 30, 12, score);
 
 	//pencil->RemoveSprite(joedoe, frog->x, frog->y);
 
@@ -290,6 +289,7 @@ void Frogger::loop() {
 	}
 
 	pencil->DrawSprite(frog->sprite, frog->x, frog->y, GRN);
+	pencil->DrawTileNumber(digits, 30, 12, score);
 }
 
 int main(void) {

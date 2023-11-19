@@ -69,6 +69,15 @@ void SiroPencil::DrawTile(Tile tile, unsigned char x, unsigned char y) {
 	}
 }
 
+void SiroPencil::DrawTileNumber(Tile* SizeTenArray[10], unsigned char x, unsigned char y, int number, Tile* blankdigit) {
+	while (number > 0) {
+		DrawTile(*SizeTenArray[number % 10], x, y);
+		number /= 10;
+		x--;
+	}
+	DrawTile(*blankdigit, x, y);
+}
+
 void SiroPencil::DrawTileNumber(Tile* SizeTenArray[10], unsigned char x, unsigned char y, int number) {
 	while (number > 0) {
 		DrawTile(*SizeTenArray[number % 10], x, y);
