@@ -95,7 +95,7 @@ void SiroPencil::RemoveSprite(Sprite* sprite, unsigned char xpos, unsigned char 
 	}
 }
 
-void SiroPencil::ClearScreen() {
+void SiroPencil::ClearScreen(unsigned char colour) {
 	for (int y = 0; y < WIN_HEIGHT; y++) {
 		for (int x = 0; x < WIN_WIDTH; x++) {
 			_renderer->pixelbuffer[y][x] = 0;
@@ -103,7 +103,7 @@ void SiroPencil::ClearScreen() {
 	}
 	for (int y = 0; y < WIN_HEIGHT / TILESIZE; y++) {
 		for (int x = 0; x < WIN_WIDTH / TILESIZE; x++) {
-			_renderer->backgroundcolors[y][x] = 0;
+			_renderer->backgroundcolors[y][x] = colour;
 		}
 	}
 }
@@ -118,7 +118,7 @@ void SiroPencil::DrawBGColour(unsigned char xpos, unsigned char ypos, unsigned c
 	_renderer->backgroundcolors[ypos][xpos] = colour & 15;
 }
 
-unsigned char SiroPencil::DrawAnimatedSprite(AnimatedSprite* animation, unsigned char x_pos, unsigned char y_pos, unsigned char colour) {
+bool SiroPencil::DrawAnimatedSprite(AnimatedSprite* animation, unsigned char x_pos, unsigned char y_pos, unsigned char colour) {
 	if (!(_framecounter & (animation->speed - 1))) {
 		animation->frame++;
 		if (animation->frame >= animation->sprites.size()) {

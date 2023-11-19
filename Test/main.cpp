@@ -287,9 +287,9 @@ void Frogger::loop() {
 	if (input->KeyDown(KeyCode::LeftAlt)) {
 		score--;
 	}
+	pencil->DrawTileNumber(digits, 30, 12, score);
 
 	pencil->DrawSprite(frog->sprite, frog->x, frog->y, GRN);
-	pencil->DrawTileNumber(digits, 30, 12, score);
 }
 
 int main(void) {
