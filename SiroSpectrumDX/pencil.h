@@ -51,7 +51,7 @@ public:
 	 * @param y_pos:
 	 * The y position of the sprite.
 	 * @param colour:
-	 * The colour of the sprite.
+	 * The colour and or mirroring of the sprite.
 	 */
 	void DrawSprite(Sprite* sprite, unsigned char x_pos, unsigned char y_pos, unsigned char colour);
 
@@ -65,7 +65,7 @@ public:
 	 * @param y_pos:
 	 * The y position of the displayed sprite.
 	 * @param colour:
-	 * The colour of the displayed sprite.
+	 * The colour and or mirroring of the displayed sprite.
 	 */
 	bool DrawAnimatedSprite(AnimatedSprite* animation, unsigned char x_pos, unsigned char y_pos, unsigned char colour);
 
