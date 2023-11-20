@@ -48,7 +48,7 @@ void SiroCore::StartupConsole(const char* name) {
 
     _renderer = _renderer->GetRenderer();
     _renderer->SetupRenderer();
-    _input = _input->GetKeyboard();
+    _input = _input->PlugInKeyboard();
     _input->_window = _window;
 }
 

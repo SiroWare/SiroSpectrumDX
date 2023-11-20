@@ -27,7 +27,7 @@ public:
 	bool Collision(Entity* entity1, Entity* entity2);
 
 };
-SiroInput* input = input->GetKeyboard();
+SiroInput* input = input->PlugInKeyboard();
 SiroPencil* pencil = pencil->SharpenPencil();
 
 unsigned char posx = 0;

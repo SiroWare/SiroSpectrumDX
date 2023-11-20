@@ -31,7 +31,7 @@ void Hall_1a::setup() {
 
 	//TileMap = unsigned char[32*24]{0,0,0,0,0,0,0,0,0,0,0};
 
-	Pencil->SetSprite(&Sprite(8,16,
+	Pencil->DrawSprite(&Sprite(8,16,
 0,0,0,1,1,1,0,0,
 0,0,1,1,1,1,1,0,
 0,1,1,1,1,1,0,0,

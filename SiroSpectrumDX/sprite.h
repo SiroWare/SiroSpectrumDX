@@ -5,7 +5,17 @@
 #include <SiroSpectrumDX/vector.h>
 
 struct Sprite {
-	Sprite(unsigned char _width, unsigned char _height, unsigned char count,...);
+	/**
+	 * @brief An array of pixels forming an image.
+	 *
+	 * @param _width:
+	 * The width of the image.
+	 * @param _height:
+	 * The height of the image.
+	 * @param _pixels:
+	 * The array itself. Can be of any shape or size inline with the width and height.
+	 */
+	Sprite(unsigned char _width, unsigned char _height, unsigned char _pixels,...);
 	~Sprite();
 	unsigned char width;
 	unsigned char height;
@@ -13,6 +23,14 @@ struct Sprite {
 };
 
 struct AnimatedSprite {
+	/**
+	 * @brief An array sprites forming an animation.
+	 *
+	 * @param _sprites:
+	 * The array of sprites.
+	 * @param _speed:
+	 * The speed at which the Animation is to be played.
+	 */
 	AnimatedSprite(std::initializer_list<Sprite*> _sprites, unsigned char _speed);
 	SiroVector<Sprite*> sprites;
 	unsigned char speed;

@@ -4,7 +4,7 @@
 #include <OCCVLTATVM/bronx/pregoapartments.h>
 #include <OCCVLTATVM/city.h>
 
-SiroInput* input = input->GetKeyboard();
+SiroInput* input = input->PlugInKeyboard();
 
 //extern unsigned char* TileMap;
 //extern Tile* TileArray[16];

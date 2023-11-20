@@ -1,14 +1,14 @@
 #include <SiroSpectrumDX/sprite.h>
 #include <stdarg.h>
 
-Sprite::Sprite(unsigned char _width, unsigned char _height, unsigned char count,...) {
+Sprite::Sprite(unsigned char _width, unsigned char _height, unsigned char _pixels,...) {
 	int result;
 	va_list list;
-	va_start(list, count);
+	va_start(list, _pixels);
 	image = new unsigned char[_width * _height];
 	width = _width;
 	height = _height;
-	image[0] = count;
+	image[0] = _pixels;
 	for (int i = 1; i < _width * _height; i++) {
 		result = va_arg(list, unsigned char);
 		image[i] = result;

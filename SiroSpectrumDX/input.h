@@ -123,28 +123,16 @@ enum class KeyCode
 	Menu = 348
 };
 
-enum class MouseButton
-{
-	MouseLeft = 0,
-	MouseRight = 1,
-	MouseMiddle = 2,
-	MouseButton1 = 0,
-	MouseButton2 = 1,
-	MouseButton3 = 2,
-	MouseButton4 = 3,
-	MouseButton5 = 4,
-	MouseButton6 = 5,
-	MouseButton7 = 6,
-	MouseButton8 = 7
-};
-
 #include <map>
 
 class SiroInput
 {
 public:
 	SiroInput(const SiroInput&) = delete;
-	static SiroInput* GetKeyboard()
+	/**
+	 * @brief Initializes SiroInput.
+	 */
+	static SiroInput* PlugInKeyboard()
 	{
 		if (!_instance)	{
 			_instance = new SiroInput();
@@ -164,8 +152,6 @@ private:
 	~SiroInput();
 	static SiroInput* _instance;
 	struct GLFWwindow* _window;
-
-	void setWindow(GLFWwindow* window);
 
 	bool _presscalled = 0;
 	bool _relescalled = 0;
