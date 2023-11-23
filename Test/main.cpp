@@ -5,8 +5,11 @@
 #include <vector>
 #include <stdio.h>
 
+SiroInput* input = input->PlugInKeyboard();
+SiroPencil* pencil = pencil->SharpenPencil();
+
 #define RESETPLAYER {frog->x = 128; \
-					frog->y = 168 + 8;\
+					frog->y = 176;\
 }
 
 struct Entity {
@@ -15,25 +18,46 @@ struct Entity {
 	unsigned char y;
 };
 
+struct Lane {
+	Lane(Sprite* carsprite, unsigned char colour, int size, unsigned char y_pos);
+	virtual void UpdateLane(int speed);
+	std::vector<Entity*>cars;
+	unsigned char _colour;
+};
+
+void Lane::UpdateLane(signed int speed) {
+	for (int i = 0; i < cars.size(); i++) {
+		pencil->DrawSprite(cars[i]->sprite, cars[i]->x, cars[i]->y, _colour);
+		cars[i]->x += speed;
+	}
+}
+
+Lane::Lane(Sprite* carsprite, unsigned char colour, int size, unsigned char y_pos) {
+	cars.resize(size);
+	for (int i = 0; i < cars.size(); i++) {
+		cars[i] = new Entity();
+		cars[i]->sprite = carsprite;
+		cars[i]->x = i * (256 / cars.size());
+		cars[i]->y = y_pos;
+	}
+	_colour = colour;
+}
+
 class Frogger : public Game {
 public:
 	void setup() override;
 	void loop() override;
-
-	std::vector<Entity*>slowlane;
 
 	Entity* frog = new Entity();
 
 	bool Collision(Entity* entity1, Entity* entity2);
 
 };
-SiroInput* input = input->PlugInKeyboard();
-SiroPencil* pencil = pencil->SharpenPencil();
 
 unsigned char posx = 0;
 unsigned char posy = 0;
 
-Sprite* frogy = new Sprite(8, 8,
+Sprite* frogsprite = new Sprite(8, 8,
 		1,0,0,1,1,0,0,1,
 		1,0,1,1,1,1,0,1,
 		0,1,0,1,1,0,1,0,
@@ -55,166 +79,13 @@ Sprite* car = new Sprite(16, 8,
 		0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0
 	);
 
-Sprite* joedoe = new Sprite(8,16, 
-	0,0,0,1,1,1,0,0,
-	0,0,1,1,1,1,1,0,
-	0,1,1,1,1,1,0,0,
-	0,1,1,1,0,1,0,0,
-	0,0,1,1,1,1,1,0,
-	0,0,1,1,1,1,0,0,
-	0,0,0,1,1,0,0,0,
-	0,0,1,1,0,1,0,0,
-	0,1,1,1,0,1,1,0,
-	0,1,1,1,0,1,1,0,
-	0,1,1,1,1,1,1,0,
-	0,1,0,0,1,0,1,0,
-	0,0,1,1,1,1,0,0,
-	0,0,1,1,0,1,0,0,
-	0,0,1,0,1,1,0,0,
-	0,0,1,1,0,1,1,0
-);
+Lane* slowlane = new Lane(car, DGRN, 3, 168);
 
-Sprite* joewalk = new Sprite(8,16, 
-	0,0,0,1,1,1,0,0,
-	0,0,1,1,1,1,1,0,
-	0,1,1,1,1,1,0,0,
-	0,1,1,1,0,1,0,0,
-	0,0,1,1,1,1,1,0,
-	0,0,1,1,1,1,0,0,
-	0,0,0,1,1,0,0,0,
-	0,0,1,1,0,1,0,0,
-	0,1,1,1,0,1,0,0,
-	0,0,1,1,1,0,0,0,
-	0,0,0,1,1,1,0,0,
-	0,0,1,0,1,1,0,0,
-	0,0,1,1,0,0,0,0,
-	0,1,1,1,0,1,1,0,
-	1,1,0,0,0,1,1,0,
-	0,1,1,0,0,0,1,1);
+Lane* midllane = new Lane(car, YLW | MIRROR, 4, 8 * 18);
 
-//Sprite* frogx = new Sprite(8, 8, 
-//		1,0,0,0,0,0,1,1,
-//		1,1,1,0,0,1,0,0,
-//		0,0,1,1,1,0,1,0,
-//		0,1,1,1,1,1,1,1,
-//		0,1,1,1,1,1,1,1,
-//		0,0,1,1,1,0,1,0,
-//		1,1,1,0,0,1,0,0,
-//		1,0,0,0,0,0,1,1
-//	);
+Lane* fastlane = new Lane(car, RED, 2, 8 * 15);
 
-Tile* t0 = new Tile{ {
-0,1,1,1,1,0,0,0,
-1,1,0,0,1,1,0,0,
-1,1,0,0,1,1,0,0,
-1,1,0,0,1,1,0,0,
-1,1,0,0,1,1,0,0,
-1,1,0,0,1,1,0,0,
-0,1,1,1,1,0,0,0,
-0,0,0,0,0,0,0,0, }, 0b00111100 };
-
-Tile* t1 = new Tile{ {
-0,0,0,1,1,0,0,0,
-0,0,1,1,1,0,0,0,
-0,1,0,1,1,0,0,0,
-0,0,0,1,1,0,0,0,
-0,0,0,1,1,0,0,0,
-0,0,0,1,1,0,0,0,
-0,0,0,1,1,0,0,0,
-0,0,0,0,0,0,0,0, }, 0b00111100 };
-
-Tile* t2 = new Tile{ {
-0,1,1,1,1,0,0,0,
-1,1,0,0,1,1,0,0,
-0,0,0,0,1,1,0,0,
-0,0,0,1,1,0,0,0,
-0,0,1,1,0,0,0,0,
-0,1,1,0,0,0,0,0,
-1,1,1,1,1,1,0,0,
-0,0,0,0,0,0,0,0, }, 0b00111100 };
-
-Tile* t3 = new Tile{ {
-0,1,1,1,1,0,0,0,
-1,1,0,0,1,1,0,0,
-0,0,0,0,1,1,0,0,
-0,0,1,1,1,0,0,0,
-0,0,0,0,1,1,0,0,
-1,1,0,0,1,1,0,0,
-0,1,1,1,1,0,0,0,
-0,0,0,0,0,0,0,0, }, 0b00111100 };
-
-Tile* t4 = new Tile{ {
-0,0,0,1,1,0,0,0,
-0,0,1,1,1,0,0,0,
-0,1,1,1,1,0,0,0,
-1,1,0,1,1,0,0,0,
-1,0,0,1,1,0,0,0,
-1,1,1,1,1,1,0,0,
-0,0,0,1,1,0,0,0,
-0,0,0,0,0,0,0,0, }, 0b00111100 };
-
-Tile* t5 = new Tile{ {
-0,1,1,1,1,1,0,0,
-0,1,0,0,0,0,0,0,
-1,1,1,1,1,0,0,0,
-1,1,0,0,1,1,0,0,
-0,0,0,0,1,1,0,0,
-1,1,0,0,1,1,0,0,
-0,1,1,1,1,0,0,0,
-0,0,0,0,0,0,0,0, }, 0b00111100 };
-
-Tile* t6 = new Tile{ {
-0,1,1,1,1,0,0,0,
-1,1,0,0,1,1,0,0,
-1,1,0,0,0,0,0,0,
-1,1,1,1,1,0,0,0,
-1,1,0,0,1,1,0,0,
-1,1,0,0,1,1,0,0,
-0,1,1,1,1,0,0,0,
-0,0,0,0,0,0,0,0, }, 0b00111100 };
-
-Tile* t7 = new Tile{ {
-1,1,1,1,1,1,0,0,
-0,0,0,0,1,0,0,0,
-0,0,0,1,1,0,0,0,
-0,0,1,1,0,0,0,0,
-0,0,1,1,0,0,0,0,
-0,1,1,0,0,0,0,0,
-0,1,1,0,0,0,0,0,
-0,0,0,0,0,0,0,0, }, 0b00111100 };
-
-Tile* t8 = new Tile{ {
-0,1,1,1,1,0,0,0,
-1,1,0,0,1,1,0,0,
-1,1,0,0,1,1,0,0,
-0,1,1,1,1,0,0,0,
-1,1,0,0,1,1,0,0,
-1,1,0,0,1,1,0,0,
-0,1,1,1,1,0,0,0,
-0,0,0,0,0,0,0,0, }, 0b00111100 };
-
-Tile* t9 = new Tile{ {
-0,1,1,1,1,0,0,0,
-1,1,0,0,1,1,0,0,
-1,1,0,0,1,1,0,0,
-0,1,1,1,1,1,0,0,
-0,0,0,0,1,1,0,0,
-1,1,0,0,1,1,0,0,
-0,1,1,1,1,0,0,0,
-0,0,0,0,0,0,0,0, }, 0b00111100 };
-
-Tile* tnul = new Tile{ {
-0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0, }, 0b00010000 };
-
-Tile* digits[10];
-int score = 100;
+Lane* waterlane = new Lane(car, DYLW, 8, 8 * 11);
 
 bool Frogger::Collision(Entity* entity1, Entity* entity2) {
 	if (entity1->x + entity1->sprite->width > entity2->x &&
@@ -227,46 +98,63 @@ bool Frogger::Collision(Entity* entity1, Entity* entity2) {
 	return false;
 }
 
-AnimatedSprite* walkanimationprime = new AnimatedSprite({joedoe, joewalk}, 1);
+
 
 void Frogger::setup() {
-	frog->sprite = frogy;
+	frog->sprite = frogsprite;
 	RESETPLAYER;
 
-	digits[0] = t0;
-	digits[1] = t1;
-	digits[2] = t2;
-	digits[3] = t3;
-	digits[4] = t4;
-	digits[5] = t5;
-	digits[6] = t6;
-	digits[7] = t7;
-	digits[8] = t8;
-	digits[9] = t9;
-
-
-	slowlane.resize(4);
-	for (int i = 0; i < slowlane.size(); i++) {
-		slowlane[i] = new Entity();
-		slowlane[i]->sprite = car;
-		slowlane[i]->x = i * (256 / slowlane.size());
-		slowlane[i]->y = 168;
-	}
 }
 
 void Frogger::loop() {
 	pencil->ClearScreen();
 
-	
-	for (int i = 0; i < slowlane.size(); i++) {
-		pencil->DrawSprite(slowlane[i]->sprite, slowlane[i]->x, slowlane[i]->y, YLW);
-		slowlane[i]->x--;
-		if (Collision(frog, slowlane[i])) {
+	slowlane->UpdateLane(-1);
+	for (int i = 0; i < slowlane->cars.size(); i++) {
+		if (Collision(frog, slowlane->cars[i])) {
 			RESETPLAYER;
 		}
 	}
 
-	//pencil->RemoveSprite(joedoe, frog->x, frog->y);
+	midllane->UpdateLane(2);
+	for (int i = 0; i < midllane->cars.size(); i++) {
+		if (Collision(frog, midllane->cars[i])) {
+			RESETPLAYER;
+		}
+	}
+	fastlane->UpdateLane(-4);
+	for (int i = 0; i < fastlane->cars.size(); i++) {
+		if (Collision(frog, fastlane->cars[i])) {
+			RESETPLAYER;
+		}
+	}
+
+
+	for (int y = 0; y < 6; y++) {
+		for (int x = 0; x < 32; x++) {
+			pencil->DrawBGColour(x, y + 6, DBLU);
+		}
+	}
+
+	waterlane->UpdateLane(1);
+
+
+	if (frog->y >= 48 && frog->y < 96) {
+		bool touch = false;
+		for (int i = 0; i < waterlane->cars.size(); i++) {
+			if (Collision(frog, waterlane->cars[i])) {
+				touch = true;
+			}
+		}
+		if (!touch) {
+			RESETPLAYER;
+		}
+	}
+
+	pencil->DrawBGColour(4, 5, MGT);
+	pencil->DrawBGColour(12, 5, MGT);
+	pencil->DrawBGColour(20, 5, MGT);
+	pencil->DrawBGColour(28, 5, MGT);
 
 	if (input->KeyPressed(KeyCode::Up)) {
 		frog->y -= 8;
@@ -280,14 +168,6 @@ void Frogger::loop() {
 	else if (input->KeyPressed(KeyCode::Right)) {
 		frog->x += 8;
 	}
-
-	if (input->KeyDown(KeyCode::LeftControl)) {
-		score++;
-	}
-	if (input->KeyDown(KeyCode::LeftAlt)) {
-		score--;
-	}
-	pencil->DrawTileNumber(digits, 30, 12, score);
 
 	pencil->DrawSprite(frog->sprite, frog->x, frog->y, GRN);
 }
