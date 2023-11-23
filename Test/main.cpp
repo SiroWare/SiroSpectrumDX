@@ -79,13 +79,27 @@ Sprite* car = new Sprite(16, 8,
 		0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0
 	);
 
+Sprite* logg = new Sprite(24, 8,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+	0,1,1,1,0,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,0,
+	0,1,1,0,0,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,0,
+	0,0,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+	0,1,1,1,0,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,0,
+	0,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	);
+
 Lane* slowlane = new Lane(car, DGRN, 3, 168);
 
-Lane* midllane = new Lane(car, YLW | MIRROR, 4, 8 * 18);
+Lane* midllane = new Lane(car, CYN | MIRROR, 4, 8 * 18);
 
 Lane* fastlane = new Lane(car, RED, 2, 8 * 15);
 
-Lane* waterlane = new Lane(car, DYLW, 8, 8 * 11);
+Lane* waterlane = new Lane(logg, DYLW, 4, 8 * 11);
+Lane* waterlane2 = new Lane(logg, DYLW, 6, 8 * 10);
+Lane* waterlane3 = new Lane(logg, DYLW, 3, 8 * 9);
+Lane* waterlane4 = new Lane(logg, DYLW, 3, 8 * 8);
 
 bool Frogger::Collision(Entity* entity1, Entity* entity2) {
 	if (entity1->x + entity1->sprite->width > entity2->x &&
@@ -130,19 +144,41 @@ void Frogger::loop() {
 	}
 
 
-	for (int y = 0; y < 6; y++) {
+	for (int y = 0; y < 4; y++) {
 		for (int x = 0; x < 32; x++) {
-			pencil->DrawBGColour(x, y + 6, DBLU);
+			pencil->DrawBGColour(x, y + 8, DBLU);
 		}
 	}
 
 	waterlane->UpdateLane(1);
+	waterlane2->UpdateLane(-1);
+	waterlane3->UpdateLane(1);
+	waterlane4->UpdateLane(-3);
 
 
-	if (frog->y >= 48 && frog->y < 96) {
+	if (frog->y >= 64 && frog->y < 96) {
 		bool touch = false;
 		for (int i = 0; i < waterlane->cars.size(); i++) {
 			if (Collision(frog, waterlane->cars[i])) {
+				frog->x = waterlane->cars[i]->x;
+				touch = true;
+			}
+		}
+		for (int i = 0; i < waterlane2->cars.size(); i++) {
+			if (Collision(frog, waterlane2->cars[i])) {
+				frog->x = waterlane2->cars[i]->x;
+				touch = true;
+			}
+		}
+		for (int i = 0; i < waterlane3->cars.size(); i++) {
+			if (Collision(frog, waterlane3->cars[i])) {
+				frog->x = waterlane3->cars[i]->x;
+				touch = true;
+			}
+		}
+		for (int i = 0; i < waterlane4->cars.size(); i++) {
+			if (Collision(frog, waterlane4->cars[i])) {
+				frog->x = waterlane4->cars[i]->x;
 				touch = true;
 			}
 		}
@@ -151,7 +187,7 @@ void Frogger::loop() {
 		}
 	}
 
-	pencil->DrawBGColour(4, 5, MGT);
+	pencil->DrawBGColour( 4, 5, MGT);
 	pencil->DrawBGColour(12, 5, MGT);
 	pencil->DrawBGColour(20, 5, MGT);
 	pencil->DrawBGColour(28, 5, MGT);
