@@ -23,12 +23,14 @@ struct Lane {
 	virtual void UpdateLane(int speed);
 	std::vector<Entity*>cars;
 	unsigned char _colour;
+	signed int _speed;
 };
 
 void Lane::UpdateLane(signed int speed) {
+	_speed = speed;
 	for (int i = 0; i < cars.size(); i++) {
 		pencil->DrawSprite(cars[i]->sprite, cars[i]->x, cars[i]->y, _colour);
-		cars[i]->x += speed;
+		cars[i]->x += _speed;
 	}
 }
 
@@ -58,14 +60,14 @@ unsigned char posx = 0;
 unsigned char posy = 0;
 
 Sprite* frogsprite = new Sprite(8, 8,
-		1,0,0,1,1,0,0,1,
-		1,0,1,1,1,1,0,1,
 		0,1,0,1,1,0,1,0,
+		1,1,1,1,1,1,1,1,
+		0,1,1,1,0,1,1,0,
 		0,0,1,1,1,1,0,0,
-		0,0,1,1,1,1,0,0,
+		0,0,1,0,1,1,0,0,
 		0,1,1,1,1,1,1,0,
-		0,1,0,1,1,0,1,0,
-		1,1,0,0,0,0,1,1
+		1,1,0,1,1,0,1,1,
+		0,1,0,0,0,0,1,0
 	);
 
 Sprite* car = new Sprite(16, 8,
@@ -160,25 +162,25 @@ void Frogger::loop() {
 		bool touch = false;
 		for (int i = 0; i < waterlane->cars.size(); i++) {
 			if (Collision(frog, waterlane->cars[i])) {
-				frog->x = waterlane->cars[i]->x;
+				frog->x += waterlane->_speed;
 				touch = true;
 			}
 		}
 		for (int i = 0; i < waterlane2->cars.size(); i++) {
 			if (Collision(frog, waterlane2->cars[i])) {
-				frog->x = waterlane2->cars[i]->x;
+				frog->x += waterlane2->_speed;
 				touch = true;
 			}
 		}
 		for (int i = 0; i < waterlane3->cars.size(); i++) {
 			if (Collision(frog, waterlane3->cars[i])) {
-				frog->x = waterlane3->cars[i]->x;
+				frog->x += waterlane3->_speed;
 				touch = true;
 			}
 		}
 		for (int i = 0; i < waterlane4->cars.size(); i++) {
 			if (Collision(frog, waterlane4->cars[i])) {
-				frog->x = waterlane4->cars[i]->x;
+				frog->x += waterlane4->_speed;
 				touch = true;
 			}
 		}
