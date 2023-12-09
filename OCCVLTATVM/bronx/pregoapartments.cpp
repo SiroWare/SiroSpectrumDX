@@ -4,6 +4,9 @@ PregoApartments::PregoApartments(){
 	AddRoomAt(new Hall_1a(), 0);
 }
 
+extern unsigned char TileScreen[32 * 20];
+extern Tile* TileArray[16];
+
 void Hall_1a::setup() {
 	//Entity* entity = new Entity(Sprite, x,y, colour)
 	wallup = new Tile{ {
@@ -26,8 +29,8 @@ void Hall_1a::setup() {
 		0,0,0,0,0,0,0,0,
 		1,1,1,1,1,1,1,1,}, 0b00000011 };
 
-	//TileArray[1] = walldown;
-	//TileArray[2] = wallup;
+	TileArray[1] = walldown;
+	TileArray[2] = wallup;
 
 	//TileMap = unsigned char[32*24]{0,0,0,0,0,0,0,0,0,0,0};
 

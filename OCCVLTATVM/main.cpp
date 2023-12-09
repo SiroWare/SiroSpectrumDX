@@ -7,7 +7,6 @@
 SiroInput* input = input->PlugInKeyboard();
 
 //extern unsigned char* TileMap;
-//extern Tile* TileArray[16];
 
 int main(void) {
 	SiroCore sc;

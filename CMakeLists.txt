@@ -95,6 +95,8 @@ add_executable(OCCVLTATVM # g++ OCCVLTATVM/main.cpp -o OCCVLTATVM
 	OCCVLTATVM/room.h
 	OCCVLTATVM/city.cpp
 	OCCVLTATVM/city.h
+	OCCVLTATVM/decorator.cpp
+	OCCVLTATVM/decorator.h
 	OCCVLTATVM/bronx/pregoapartments.cpp
 	OCCVLTATVM/bronx/pregoapartments.h
 )

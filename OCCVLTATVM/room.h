@@ -11,7 +11,7 @@ class Room : public Game {
 public:
 
 protected:
-	SiroInput* Input = Input->GetKeyboard();
+	SiroInput* Input = Input->PlugInKeyboard();
 	SiroPencil* Pencil = Pencil->SharpenPencil();
 
 private:
