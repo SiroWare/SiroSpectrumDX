@@ -76,6 +76,7 @@ add_library(SiroSpectrumDX # ar rcs libSiroSpectrumDX.a
 # Frogger
 add_executable(Frogger # g++ Frogger/main.cpp -o Frogger
 	Frogger/main.cpp
+	Frogger/spiriti.h
 )
 target_link_libraries(Frogger # g++ -lSiroSpectrumDX
 	${ALL_GRAPHICS_LIBS}
