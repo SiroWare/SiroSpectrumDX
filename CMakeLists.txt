@@ -73,36 +73,13 @@ add_library(SiroSpectrumDX # ar rcs libSiroSpectrumDX.a
 	SiroSpectrumDX/vector.h
 )
 
-# Test
-add_executable(Test # g++ Test/main.cpp -o Test
-	Test/main.cpp
+# Frogger
+add_executable(Frogger # g++ Frogger/main.cpp -o Frogger
+	Frogger/main.cpp
 )
-target_link_libraries(Test # g++ -lSiroSpectrumDX
+target_link_libraries(Frogger # g++ -lSiroSpectrumDX
 	${ALL_GRAPHICS_LIBS}
 )
-	target_link_libraries(Test
-		${ALL_GRAPHICS_LIBS}
-	)
-
-# OCCVLTATVM
-add_executable(OCCVLTATVM # g++ OCCVLTATVM/main.cpp -o OCCVLTATVM
-	OCCVLTATVM/main.cpp
-	OCCVLTATVM/entity.cpp
-	OCCVLTATVM/entity.h
-	OCCVLTATVM/hotel.cpp
-	OCCVLTATVM/hotel.h
-	OCCVLTATVM/room.cpp
-	OCCVLTATVM/room.h
-	OCCVLTATVM/city.cpp
-	OCCVLTATVM/city.h
-	OCCVLTATVM/decorator.cpp
-	OCCVLTATVM/decorator.h
-	OCCVLTATVM/bronx/pregoapartments.cpp
-	OCCVLTATVM/bronx/pregoapartments.h
-)
-target_link_libraries(OCCVLTATVM # g++ -lSiroSpectrumDX
-	${ALL_GRAPHICS_LIBS}
-)
-	target_link_libraries(OCCVLTATVM
+	target_link_libraries(Frogger
 		${ALL_GRAPHICS_LIBS}
 	)
