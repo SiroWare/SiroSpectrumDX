@@ -23,8 +23,6 @@
 #define MIRROR 16
 #define MIRRORY 32
 
-class SiroRenderer;
-
 class SiroPencil {
 public:
 	SiroPencil(const SiroPencil&) = delete;
@@ -172,7 +170,7 @@ private:
 
 	static SiroPencil* _instance;
 
-	SiroRenderer* _renderer;
+	class SiroRenderer* _renderer;
 };
 
 #endif
