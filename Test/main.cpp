@@ -8,8 +8,8 @@
 SiroInput* input = input->PlugInKeyboard();
 SiroPencil* pencil = pencil->SharpenPencil();
 
-#define RESETPLAYER {frog->x = 128; \
-					frog->y = 176;\
+#define RESETPLAYER {pepe->x = 128; \
+					pepe->y = 176;\
 }
 
 struct Entity {
@@ -50,7 +50,7 @@ public:
 	void setup() override;
 	void loop() override;
 
-	Entity* frog = new Entity();
+	Entity* pepe = new Entity();
 
 	bool Collision(Entity* entity1, Entity* entity2);
 
@@ -117,7 +117,7 @@ bool Frogger::Collision(Entity* entity1, Entity* entity2) {
 
 
 void Frogger::setup() {
-	frog->sprite = frogsprite;
+	pepe->sprite = frogsprite;
 	RESETPLAYER;
 
 }
@@ -127,20 +127,20 @@ void Frogger::loop() {
 
 	slowlane->UpdateLane(-1);
 	for (int i = 0; i < slowlane->cars.size(); i++) {
-		if (Collision(frog, slowlane->cars[i])) {
+		if (Collision(pepe, slowlane->cars[i])) {
 			RESETPLAYER;
 		}
 	}
 
 	midllane->UpdateLane(2);
 	for (int i = 0; i < midllane->cars.size(); i++) {
-		if (Collision(frog, midllane->cars[i])) {
+		if (Collision(pepe, midllane->cars[i])) {
 			RESETPLAYER;
 		}
 	}
 	fastlane->UpdateLane(-4);
 	for (int i = 0; i < fastlane->cars.size(); i++) {
-		if (Collision(frog, fastlane->cars[i])) {
+		if (Collision(pepe, fastlane->cars[i])) {
 			RESETPLAYER;
 		}
 	}
@@ -158,29 +158,29 @@ void Frogger::loop() {
 	waterlane4->UpdateLane(-3);
 
 
-	if (frog->y >= 64 && frog->y < 96) {
+	if (pepe->y >= 64 && pepe->y < 96) {
 		bool touch = false;
 		for (int i = 0; i < waterlane->cars.size(); i++) {
-			if (Collision(frog, waterlane->cars[i])) {
-				frog->x += waterlane->_speed;
+			if (Collision(pepe, waterlane->cars[i])) {
+				pepe->x += waterlane->_speed;
 				touch = true;
 			}
 		}
 		for (int i = 0; i < waterlane2->cars.size(); i++) {
-			if (Collision(frog, waterlane2->cars[i])) {
-				frog->x += waterlane2->_speed;
+			if (Collision(pepe, waterlane2->cars[i])) {
+				pepe->x += waterlane2->_speed;
 				touch = true;
 			}
 		}
 		for (int i = 0; i < waterlane3->cars.size(); i++) {
-			if (Collision(frog, waterlane3->cars[i])) {
-				frog->x += waterlane3->_speed;
+			if (Collision(pepe, waterlane3->cars[i])) {
+				pepe->x += waterlane3->_speed;
 				touch = true;
 			}
 		}
 		for (int i = 0; i < waterlane4->cars.size(); i++) {
-			if (Collision(frog, waterlane4->cars[i])) {
-				frog->x += waterlane4->_speed;
+			if (Collision(pepe, waterlane4->cars[i])) {
+				pepe->x += waterlane4->_speed;
 				touch = true;
 			}
 		}
@@ -195,19 +195,19 @@ void Frogger::loop() {
 	pencil->DrawBGColour(28, 5, MGT);
 
 	if (input->KeyPressed(KeyCode::Up)) {
-		frog->y -= 8;
+		pepe->y -= 8;
 	}
 	else if (input->KeyPressed(KeyCode::Down)) {
-		frog->y += 8;
+		pepe->y += 8;
 	}
 	else if (input->KeyPressed(KeyCode::Left)) {
-		frog->x -= 8;
+		pepe->x -= 8;
 	}
 	else if (input->KeyPressed(KeyCode::Right)) {
-		frog->x += 8;
+		pepe->x += 8;
 	}
 
-	pencil->DrawSprite(frog->sprite, frog->x, frog->y, GRN);
+	pencil->DrawSprite(pepe->sprite, pepe->x, pepe->y, GRN);
 }
 
 int main(void) {
