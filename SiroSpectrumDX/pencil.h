@@ -101,7 +101,7 @@ public:
 	 * @param y_pos:
 	 * The y position of the pixel.
 	 */
-	void DrawTile(Tile tile, unsigned char x_pos, unsigned char y_pos);
+	void DrawTile(Tile* tile, unsigned char x_pos, unsigned char y_pos);
 
 	/**
 	 * @brief This draws a single Tile onto the screen.

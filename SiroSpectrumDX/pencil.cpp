@@ -57,13 +57,12 @@ void SiroPencil::RemoveTile(unsigned char x, unsigned char y, unsigned char colo
 	}
 }
 
-void SiroPencil::DrawTile(Tile tile, unsigned char x, unsigned char y) {
+void SiroPencil::DrawTile(Tile* tile, unsigned char x, unsigned char y) {
 	unsigned char row = 0;
 	for (unsigned char ypos = 0; ypos < 8; ypos++) {
 		for (unsigned char xpos = 0; xpos < 8; xpos++) {
-			//DrawPixel((x * 8) + xpos, (y * 8) + ypos, tile.canvas[row] * tile.colour & 15);
-			_renderer->pixelbuffer[(y * 8) + ypos][(x * 8) + xpos] = tile.canvas[row] * tile.colour & 15;
-			DrawBGColour(x, y, tile.colour >> 4);
+			_renderer->pixelbuffer[(y * 8) + ypos][(x * 8) + xpos] = tile->canvas[row] * tile->colour & 15;
+			DrawBGColour(x, y, tile->colour >> 4);
 			row++;
 		}
 	}
@@ -71,16 +70,16 @@ void SiroPencil::DrawTile(Tile tile, unsigned char x, unsigned char y) {
 
 void SiroPencil::DrawTileNumber(Tile* SizeTenArray[10], unsigned char x, unsigned char y, int number, Tile* blankdigit) {
 	while (number > 0) {
-		DrawTile(*SizeTenArray[number % 10], x, y);
+		DrawTile(SizeTenArray[number % 10], x, y);
 		number /= 10;
 		x--;
 	}
-	DrawTile(*blankdigit, x, y);
+	DrawTile(blankdigit, x, y);
 }
 
 void SiroPencil::DrawTileNumber(Tile* SizeTenArray[10], unsigned char x, unsigned char y, int number, unsigned char colour) {
 	while (number > 0) {
-		DrawTile(*SizeTenArray[number % 10], x, y);
+		DrawTile(SizeTenArray[number % 10], x, y);
 		number /= 10;
 		x--;
 	}

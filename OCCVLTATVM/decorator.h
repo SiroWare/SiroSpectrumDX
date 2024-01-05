@@ -2,6 +2,7 @@
 #define DECORATOR_H_
 
 #include <SiroSpectrumDX/sprite.h>
+#include <SiroSpectrumDX/pencil.h>
 
 class Decorator {
 public:
@@ -16,11 +17,20 @@ public:
 		return _instance;
 	}
 
-	unsigned char TileScreen[32 * 20];
 	Tile* TileArray[16];
+	SiroPencil* pncl = pncl->SharpenPencil();
+
+	unsigned char hotelnum = 0;
+	unsigned char roomnum = 0;
+
+	unsigned char GetTile(unsigned char tile) { return LoadedMap[tile]; };
+
+	void DecorateRoom(unsigned char TileScreen[32 * 24]);
 
 private:
 	Decorator();
+
+	unsigned char* LoadedMap;
 
 	static Decorator* _instance;
 };
