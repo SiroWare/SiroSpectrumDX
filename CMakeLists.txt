@@ -84,6 +84,17 @@ target_link_libraries(Test # g++ -lSiroSpectrumDX
 		${ALL_GRAPHICS_LIBS}
 	)
 
+# dijkstra
+add_executable(dijkstra # g++ dijkstra/main.cpp -o dijkstra
+	dijkstra/main.cpp
+)
+target_link_libraries(dijkstra # g++ -lSiroSpectrumDX
+	${ALL_GRAPHICS_LIBS}
+)
+	target_link_libraries(dijkstra
+		${ALL_GRAPHICS_LIBS}
+	)
+
 # OCCVLTATVM
 add_executable(OCCVLTATVM # g++ OCCVLTATVM/main.cpp -o OCCVLTATVM
 	OCCVLTATVM/main.cpp
@@ -104,5 +115,29 @@ target_link_libraries(OCCVLTATVM # g++ -lSiroSpectrumDX
 	${ALL_GRAPHICS_LIBS}
 )
 	target_link_libraries(OCCVLTATVM
+		${ALL_GRAPHICS_LIBS}
+	)
+
+
+# HK
+add_executable(HK # g++ HK/main.cpp -o HK
+	HK/main.cpp
+	HK/entity.cpp
+	HK/entity.h
+	HK/hotel.cpp
+	HK/hotel.h
+	HK/room.cpp
+	HK/room.h
+	HK/city.cpp
+	HK/city.h
+	HK/decorator.cpp
+	HK/decorator.h
+	HK/camelot/roundtable.cpp
+	HK/camelot/roundtable.h
+)
+target_link_libraries(HK # g++ -lSiroSpectrumDX
+	${ALL_GRAPHICS_LIBS}
+)
+	target_link_libraries(HK
 		${ALL_GRAPHICS_LIBS}
 	)

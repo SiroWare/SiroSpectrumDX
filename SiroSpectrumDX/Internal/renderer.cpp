@@ -42,7 +42,7 @@ const char* fragment_shader =
 "   float index2 = texture(FGTextureSampler, UV).r;\n"
 "   vec4 texel1 = texelFetch(PaletteSampler, int(index1 * 255), 0);\n"
 "   vec4 texel2 = texelFetch(PaletteSampler, int(index2 * 255), 0);\n"
-"	FragColor = texel1 + texel2 - texel1 * texel2.a ;\n"
+"	FragColor = mix(texel1,texel2,texel2.a);\n"
 "};\0";
 
 SiroRenderer* SiroRenderer::_instance = 0;

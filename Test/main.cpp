@@ -92,6 +92,17 @@ Sprite* logg = new Sprite(24, 8,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 	);
 
+Tile* A_tile = new Tile{
+		0,0,0,1,1,0,0,0,
+		0,0,1,1,1,1,0,0,
+		0,1,1,0,0,1,1,0,
+		0,1,1,0,0,1,1,0,
+		0,1,1,1,1,1,1,0,
+		0,1,1,0,0,1,1,0,
+		0,1,1,0,0,1,1,0,
+		0,1,1,0,0,1,1,0,WHT
+};
+
 Lane* slowlane = new Lane(car, DGRN, 3, 168);
 
 Lane* midllane = new Lane(car, CYN | MIRROR, 4, 8 * 18);
@@ -208,6 +219,7 @@ void Frogger::loop() {
 	}
 
 	pencil->DrawSprite(pepe->sprite, pepe->x, pepe->y, GRN);
+	pencil->DrawTile(A_tile, 12, 12);
 }
 
 int main(void) {
